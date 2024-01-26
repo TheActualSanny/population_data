@@ -1,4 +1,4 @@
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, field_validator
 import requests
 import dotenv
 import os
@@ -51,16 +51,20 @@ class Residental_Data(BaseModel):
         else:
             return int(val)
         
-    
-url_csv = "https://opendata.duesseldorf.de/sites/default/files/Wohnbev%C3%B6lkerung%20nach%20Alter%20Wohnquartiere%20D%C3%BCsseldorf%202015_0.csv"
+
+payload = {}
+headers = {'User-Agent' : os.getenv('AGENT_DATA')}
+dataset = "https://data.europa.eu/api/hub/search/datasets/1a57a33d-3a99-4fbc-b56f-b4b109172c7d"
+response = requests.request("GET", dataset, headers=headers, data=payload)
+dataset_json = json.loads(response.text)
+
+year_2015_url = dataset_json['result']['distributions'][0]['download_url']
+
+url_csv = year_2015_url[0]
 url_json_first = 'https://opendata.duesseldorf.de/api/action/datastore/search.json?resource_id=99ff11f6-ddfd-4698-86e9-453ce2ce859a'
 url_json_second = "https://www.opendata.duesseldorf.de/api/action/datastore/search.json?resource_id=a9bb173d-8a0b-4d37-a6af-59ad1e9f485f"
 # Will contain all of the instances of residental_data class and will be used in DB creation.
 finalized_data = []
-
-payload = {}
-headers = {'User-Agent' : os.getenv('AGENT_DATA')}
-
 
 response1 = requests.request("GET", url_csv, headers=headers, data=payload)
 response2 = requests.request('GET', url_json_first, headers = headers, data = payload)
