@@ -54,13 +54,13 @@ def delete_Residental_Area(resident_area):
     else:
         logg.info('Failed to delete the given residental area...')
 
-# for instance in finalized_data:
-#     cursor.execute('''INSERT INTO dusseldorf_data (id, residental_area, year, below_6, from_six_to_10,
-#                     from_ten_to_18, from_eighteen_to_25, from_twentyfive_to_30, from_thirty_to_50, from_fifty_to_65,
-#                     from_sixtyfive_to_75, older_than_75) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', (index, instance.residental_area, instance.stated_year, instance.below_6,
-#                                                                                                                       instance.from_6_to_10, instance.from_10_to_18, instance.from_18_to_25, instance.from_25_to_30,
-#                                                                                                                       instance.from_30_to_50, instance.from_50_to_65, instance.from_65_to_75, instance.older_than_75))
-#     index += 1
+ for instance in finalized_data: #Inserts the data into dusseldorf_data table
+     cursor.execute('''INSERT INTO dusseldorf_data (id, residental_area, year, below_6, from_six_to_10,
+                    from_ten_to_18, from_eighteen_to_25, from_twentyfive_to_30, from_thirty_to_50, from_fifty_to_65,
+                    from_sixtyfive_to_75, older_than_75) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', (index, instance.residental_area, instance.stated_year, instance.below_6,
+                                                                                                                       instance.from_6_to_10, instance.from_10_to_18, instance.from_18_to_25, instance.from_25_to_30,
+                                                                                                                       instance.from_30_to_50, instance.from_50_to_65, instance.from_65_to_75, instance.older_than_75))
+     index += 1
 
 
 conn.commit()
