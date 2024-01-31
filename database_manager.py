@@ -1,4 +1,5 @@
 from main_parser import finalized_data
+from residental_Data import Residental_Data
 import mysql.connector
 import os
 import dotenv
